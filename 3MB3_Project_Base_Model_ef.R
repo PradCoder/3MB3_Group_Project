@@ -30,8 +30,8 @@ arms_model <- function(t_vals, arms, a, b, c, d, e, f){
     p_prev <- arms[1, t-1]
     g_prev <- arms[2, t-1]
   
-    dp <- a*g_prev - c*p_prev + e
-    dg <- b*p_prev - d*g_prev + f
+    dp <- a*g_prev - c*p_prev + e ## CANADA
+    dg <- b*p_prev - d*g_prev + f ## USA
     
     p_new <- p_prev + h*dp
     g_new <- g_prev + h*dg
@@ -47,7 +47,52 @@ model1 <- arms_model(t_vals, arms, a = 0.4, b = 0.3, c = 0.8, d = 0.9, e, f)
 quartz(width=8, height=6)
 plot(t_vals, model1[1,], type="l", col="purple", lwd=2,
      xlab="Time", ylab="Military Spending",
-     main="Arms Race Model Sim - Case 1a: Stable Equilibrium",
+     main="Arms Race Model Sim - Case 1a: Stable Equilibrium e>0 and f>0",
+     ylim = range(model1))
+lines(t_vals, model1[2,], col="green", lwd=2)
+legend("topright",
+       legend=c("Purple country p(t)", "Green country g(t)"),
+       col=c("purple","green"),
+       lwd=2,
+       cex=0.8)
+
+#Case 1: Stable Equilibrium (spending converges to a stable long-term level)
+#Case 1aa - Extremely large e
+model1 <- arms_model(t_vals, arms, a = 0.4, b = 0.3, c = 0.8, d = 0.9, e=e*100, f)
+quartz(width=8, height=6)
+plot(t_vals, model1[1,], type="l", col="purple", lwd=2,
+     xlab="Time", ylab="Military Spending",
+     main="Arms Race Model Sim - Case 1aa: Stable Equilibrium e>0 and e*100 e >> f",
+     ylim = range(model1))
+lines(t_vals, model1[2,], col="green", lwd=2)
+legend("topright",
+       legend=c("Purple country p(t)", "Green country g(t)"),
+       col=c("purple","green"),
+       lwd=2,
+       cex=0.8)
+
+#Case 1: Stable Equilibrium (spending converges to a stable long-term level)
+#Case 1ab - Extremely large e and f
+model1 <- arms_model(t_vals, arms, a = 0.4, b = 0.3, c = 0.8, d = 0.9, e=e*100, f=f*100)
+quartz(width=8, height=6)
+plot(t_vals, model1[1,], type="l", col="purple", lwd=2,
+     xlab="Time", ylab="Military Spending",
+     main="Arms Race Model Sim - Case 1ab: Stable Equilibrium e*100 and f*100",
+     ylim = range(model1))
+lines(t_vals, model1[2,], col="green", lwd=2)
+legend("topright",
+       legend=c("Purple country p(t)", "Green country g(t)"),
+       col=c("purple","green"),
+       lwd=2,
+       cex=0.8)
+
+#Case 1: Stable Equilibrium (spending converges to a stable long-term level)
+#Case 1ac - Extremely large and negative e and f
+model1 <- arms_model(t_vals, arms, a = 0.4, b = 0.3, c = 0.8, d = 0.9, e=e*100*-1, f=f*100*-1)
+quartz(width=8, height=6)
+plot(t_vals, model1[1,], type="l", col="purple", lwd=2,
+     xlab="Time", ylab="Military Spending",
+     main="Arms Race Model Sim - Case 1ac: Stable Equilibrium e*-100 and f*-100",
      ylim = range(model1))
 lines(t_vals, model1[2,], col="green", lwd=2)
 legend("topright",
@@ -57,12 +102,12 @@ legend("topright",
        cex=0.8)
 
 # Case 1: Stable Equilibrium (spending converges to a stable long-term level)
-# Case 1b
+# Case 1b, the green country eventually overtake purple even after 
 model1 <- arms_model(t_vals, arms, a = 0.4, b = 0.3, c = 0.8, d = 0.9, e= -e, f)
 quartz(width=8, height=6)
 plot(t_vals, model1[1,], type="l", col="purple", lwd=2,
      xlab="Time", ylab="Military Spending",
-     main="Arms Race Model Sim - Case 1b: Stable Equilibrium e=-12",
+     main="Arms Race Model Sim - Case 1b: Stable Equilibrium e<0 f>0",
      ylim = range(model1))
 lines(t_vals, model1[2,], col="green", lwd=2)
 legend("topright",
@@ -77,7 +122,7 @@ model1 <- arms_model(t_vals, arms, a = 0.4, b = 0.3, c = 0.8, d = 0.9, e, f=-f)
 quartz(width=8, height=6)
 plot(t_vals, model1[1,], type="l", col="purple", lwd=2,
      xlab="Time", ylab="Military Spending",
-     main="Arms Race Model Sim - Case 1c: Stable Equilibrium f=-15",
+     main="Arms Race Model Sim - Case 1c: Stable Equilibrium e>0 f<0",
      ylim = range(model1))
 lines(t_vals, model1[2,], col="green", lwd=2)
 legend("topright",
@@ -92,7 +137,7 @@ model1 <- arms_model(t_vals, arms, a = 0.4, b = 0.3, c = 0.8, d = 0.9, e=-e, f=-
 quartz(width=8, height=6)
 plot(t_vals, model1[1,], type="l", col="purple", lwd=2,
      xlab="Time", ylab="Military Spending",
-     main="Arms Race Model Sim - Case 1d: Stable Equilibrium e=-15 and f=-15",
+     main="Arms Race Model Sim - Case 1d: Stable Equilibrium e<0 and f<0",
      ylim = range(model1))
 lines(t_vals, model1[2,], col="green", lwd=2)
 legend("topright",
