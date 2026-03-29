@@ -5,7 +5,7 @@ library(ggplot2)
 #t-values
 t_vals <- seq(0, 50, by = 0.1)
 
-#inital conditions
+#initial conditions
 p0 <- 35
 g0 <- 20
 x0 <- c(p0, g0)
@@ -21,9 +21,6 @@ model <- function(t_vals, x0, a, b, c, d) {
   }
   return(arms)
 }
-
-colours <- c("Purple" = "purple", "Green" = "green")
-
 
 #Model 1 - Case 1(d): Line of Stable Nodes
 a1 <- 0.4
