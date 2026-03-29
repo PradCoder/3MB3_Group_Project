@@ -1,6 +1,6 @@
 #############################
 # Logistic Arms Race Model
-# With Logistic Constraints
+# Richardson With Logistic Constraints
 ############################
 
 #time values
