@@ -11,16 +11,14 @@ g0 <- 20
 x0 <- c(p0, g0)
 
 #Model solution
-arms_model_exact <- function(t_vals, x0, a, b, c, d) {
+model <- function(t_vals, x0, a, b, c, d) {
   A <- matrix(c(-c, a,
                 b, -d), nrow = 2, byrow = TRUE)
     arms <- matrix(NA, nrow = 2, ncol = length(t_vals))
-  
   for (i in 1:length(t_vals)) {
     t <- t_vals[i]
     arms[, i] <- expm(A * t) %*% x0
   }
-  
   return(arms)
 }
 
@@ -33,7 +31,7 @@ b1 <- 0.3
 c1 <- 0.6
 d1 <- 0.2
 
-model1 <- arms_model_exact(t_vals, x0, a1, b1, c1, d1)
+model1 <- model(t_vals, x0, a1, b1, c1, d1)
 
 soln1 <- data.frame(
   time = t_vals,
@@ -45,7 +43,7 @@ ggplot(soln1) +
   geom_line(aes(x = time, y = purple, colour = "Purple"), linewidth = 0.9) +
   geom_line(aes(x = time, y = green, colour = "Green"), linewidth = 0.9) +
   labs(
-    title = "Base Model: Stable Nodes",
+    title = "Base Model: Line of Stable Nodes",
     subtitle = "Condition: cd = ab",
     x = "Time",
     y = "Military Spending",
@@ -62,7 +60,7 @@ b2 <- 1.1
 c2 <- 0.3
 d2 <- 0.3
 
-model2 <- arms_model_exact(t_vals, x0, a2, b2, c2, d2)
+model2 <- model(t_vals, x0, a2, b2, c2, d2)
 
 soln2 <- data.frame(
   time = t_vals,
@@ -92,7 +90,7 @@ b3 <- 0.3
 c3 <- 0.8
 d3 <- 0.9
 
-model3 <- arms_model_exact(t_vals, x0, a3, b3, c3, d3)
+model3 <- model(t_vals, x0, a3, b3, c3, d3)
 
 soln3 <- data.frame(
   time = t_vals,
