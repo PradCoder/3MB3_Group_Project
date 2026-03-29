@@ -45,18 +45,16 @@ ggplot(soln1) +
   geom_line(aes(x = time, y = purple, colour = "Purple"), linewidth = 0.9) +
   geom_line(aes(x = time, y = green, colour = "Green"), linewidth = 0.9) +
   labs(
-    title = "Base Model: Stable Nodes",
+    title = "Base Model: Line of Stable Nodes",
     subtitle = "Condition: cd = ab",
     x = "Time",
     y = "Military Spending",
     colour = "Country",
     caption = paste("a =", a1, ", b =", b1, ", c =", c1, ", d =", d1,
-                    "| p(0) =", p0, ", g(0) =", g0,
                     "| cd =", round(c1*d1,2), ", ab =", round(a1*b1,2))
   ) +
   scale_colour_manual(values = colours) +
   theme_gray(base_size = 14)
-
 
 #Model 2 - Case 1(c): Unstable Saddle Point
 a2 <- 1.2
@@ -82,7 +80,6 @@ ggplot(soln2) +
     y = "Military Spending",
     colour = "Country",
     caption = paste("a =", a2, ", b =", b2, ", c =", c2, ", d =", d2,
-                    "| p(0) =", p0, ", g(0) =", g0,
                     "| cd =", round(c2*d2,2), ", ab =", round(a2*b2,2))
   ) +
   scale_colour_manual(values = colours) +
@@ -113,7 +110,6 @@ ggplot(soln3) +
     y = "Military Spending",
     colour = "Country",
     caption = paste("a =", a3, ", b =", b3, ", c =", c3, ", d =", d3,
-                    "| p(0) =", p0, ", g(0) =", g0,
                     "| cd =", round(c3*d3,2), ", ab =", round(a3*b3,2))
   ) +
   scale_colour_manual(values = colours) +
