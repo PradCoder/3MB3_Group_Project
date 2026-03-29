@@ -1,5 +1,9 @@
+# install.packages("readxl")
+library(readxl)
+SIPRI <- as.data.frame(read_excel("SIPRI.xlsx"))
+
 #######
-Canada
+# Canada
 #######
 
 #enter observed values for military spending 
@@ -50,7 +54,7 @@ C_vals[i + 1] <- canada[i]+ a_fit*usa[i] -c_fit*canada[i] + e_fit
 }
 
 #plot the model 
-plot(t_vals, C_vals, type = "line", xlab = "Time (years)", ylab = "Military spending (USD millions)",
+plot(t_vals, C_vals, type = "l", xlab = "Time (years)", ylab = "Military spending (USD millions)",
      main="Predicted vs. Observed Military Spending in Canada",ylim=range(canada))
     
 #add observed data to the model 
@@ -64,7 +68,7 @@ legend("topleft",
        cex=0.8)
 
 #######
-USA
+# USA
 #######
 #create a function to calculate the sum of squared errors for given b,d,f values
 ss <- function(par = c(b,d,f)) {
@@ -110,7 +114,7 @@ for (i in 1:(length(U_vals) - 1)) {
 }
 
 #plot the model 
-plot(t_vals, U_vals, type = "line", xlab = "Time (years)", ylab = "Military spending (USD millions)",
+plot(t_vals, U_vals, type = "l", xlab = "Time (years)", ylab = "Military spending (USD millions)",
      main="Predicted vs. Observed Military Spending in the US",ylim=range(usa))
 
 #add observed data to the model 
