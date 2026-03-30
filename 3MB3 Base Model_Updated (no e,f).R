@@ -44,6 +44,14 @@ soln1 <- data.frame(
 ggplot(soln1) +
   geom_line(aes(x = time, y = purple, colour = "Purple"), linewidth = 0.9) +
   geom_line(aes(x = time, y = green, colour = "Green"), linewidth = 0.9) +
+  annotate("text",
+           x = max(t_vals)*0.10,
+           y = max(soln1$green)*1.1,
+           label = "(p*, g*) lies on equilibrium line: g* = 1.5p*",
+           hjust = 0,
+           size = 4,
+           colour = "firebrick",
+           fontface = "italic")+
   labs(
     title = "Base Model: Line of Stable Nodes",
     subtitle = "Condition: cd = ab",
@@ -103,8 +111,18 @@ soln3 <- data.frame(
 ggplot(soln3) +
   geom_line(aes(x = time, y = purple, colour = "Purple"), linewidth = 0.9) +
   geom_line(aes(x = time, y = green, colour = "Green"), linewidth = 0.9) +
+  
+  annotate("text",
+           x = max(t_vals)*0.75,
+           y = 3, 
+           label = "(p*, g*) = (0, 0)",
+           hjust = 0,
+           size = 4,
+           colour = "firebrick",
+           fontface = "italic") +
+  
   labs(
-    title = "Base Model: Stable Nodes",
+    title = "Base Model: Stable Node at (0,0)",
     subtitle = "Condition: cd > ab",
     x = "Time",
     y = "Military Spending",
