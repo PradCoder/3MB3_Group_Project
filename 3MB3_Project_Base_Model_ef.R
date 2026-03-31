@@ -3,6 +3,10 @@
 # Richardson Model
 ####################
 
+## Sourcer Grind R script from https://tbb.bio.uu.nl/rdb/grind.html
+## for plotting nullclines and other phase diagrams
+source("grind.R")
+
 #time values
 t_vals <- seq(0, 50, by = 0.1)
 
@@ -178,9 +182,10 @@ plot(model1[1,], model1[2,],
      lwd=2,
      xlab="Purple spending p(t)",
      ylab="Green spending g(t)",
-     main="Phase Diagram: Case 1")
+     main="Phase Portrait: Case 1")
 points(p0, g0, col="red", pch=19)  # starting point
-points(model1[1,length(tvals)], model1[2,length(tvals)],col="purple",pch=17)
+points(model1[1,length(t_vals)], model1[2,length(t_vals)],col="purple",pch=17) #ending
+plane()
 text(p0, g0, "Start", pos=2)
 
 # Phase diagram for Case 2
@@ -190,8 +195,9 @@ plot(model2[1,], model2[2,],
      lwd=2,
      xlab="Purple spending p(t)",
      ylab="Green spending g(t)",
-     main="Phase Diagram: Case 2")
+     main="Phase Portrait: Case 2")
 points(p0, g0, col="red", pch=19)  # starting point
+points(model2[1,length(t_vals)], model2[2,length(t_vals)],col="purple",pch=17) #ending
 text(p0, g0, "Start", pos=4)
 
 #Phase diagram for Case 3
@@ -201,6 +207,7 @@ plot(model3[1,], model3[2,],
      lwd=2,
      xlab="Purple spending p(t)",
      ylab="Green spending g(t)",
-     main="Phase Diagram: Case 3")
+     main="Phase Portrait: Case 3")
 points(p0, g0, col="red", pch=19)  # starting point
+points(model3[1,length(t_vals)], model3[2,length(t_vals)],col="purple",pch=17) #ending
 text(p0, g0, "Start", pos=2)
