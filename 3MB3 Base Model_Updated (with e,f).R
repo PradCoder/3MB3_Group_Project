@@ -206,6 +206,39 @@ ggplot(soln1_neg) +
   
   theme_gray(base_size = 14)
 
+#Model 1 - Condition: cd = ab, (e> 0 f< 0)
+model1_diff <- arms_model(t_vals, arms, a = 0.4, b = 0.3, c = 0.6, d = 0.2, e=-e, f=f)
+
+eq1 <- equilibrium(a = 0.4, b = 0.3, c = 0.6, d = 0.2, e = -e, f = f) 
+## Returns null so I'm going to delete logic for
+## plotting equilibriums
+
+soln1_neg <- data.frame(
+  time = t_vals,
+  purple = model1_diff[1,],
+  green = model1_diff[2,]
+)
+
+ggplot(soln1_neg) +
+  geom_line(aes(x = time, y = purple, colour = "Purple"), linewidth = 0.9) +
+  geom_line(aes(x = time, y = green, colour = "Green"), linewidth = 0.9) +
+  
+  labs(
+    title = "Model 2: No Equilibrium",
+    subtitle = "Condition: cd = ab e<0, f>0",
+    x = "Time",
+    y = "Military Spending",
+    colour = "Country",
+    caption = paste0(
+      "a = 0.4, b = 0.3, c = 0.6, d = 0.2, e = ", -e, ", f = ", f,
+      "   |   cd = ", round(0.6*0.2,2),
+      ", ab = ", round(0.4*0.3,2)
+    )
+  ) +
+  
+  scale_colour_manual(values = c("Purple" = "purple", "Green" = "green")) +
+  
+  theme_gray(base_size = 14)
 
 #Model 2 - Condition: cd < ab , (e,f) < 0
 model2_neg <- arms_model(t_vals, arms, a = 1.2, b = 1.1, c = 0.3, d = 0.3, e, f)
@@ -247,6 +280,45 @@ ggplot(soln2) +
   scale_colour_manual(values = c("Purple" = "purple", "Green" = "green")) +
   theme_gray(base_size = 14)
 
+#Model 2 - Condition: cd < ab , (e > 0, f<0)
+model2_diff <- arms_model(t_vals, arms, a = 1.2, b = 1.1, c = 0.3, d = 0.3, e, f)
+#Plot Model 2
+soln2 <- data.frame(
+  time = t_vals,
+  purple = model2_diff[1,],
+  green = model2_diff[2,]
+)
+
+eq2 <- equilibrium(a = 1.2, b = 1.1, c = 0.3, d = 0.3, e = -e, f = f)
+
+ggplot(soln2) +
+  geom_line(aes(x = time, y = purple, colour = "Purple"), linewidth = 0.9) +
+  geom_line(aes(x = time, y = green, colour = "Green"), linewidth = 0.9) +
+  
+#equilibrium label
+annotate("text",
+         x = max(t_vals)*0.75,
+         y = eq2["p_star"] + 1,
+         label = paste0("(p*, g*) = (",
+                        round(eq2["p_star"],0), ", ",
+                        round(eq2["g_star"],0), ")"),
+         hjust = 0,
+         size = 4,
+         colour = "firebrick",
+         fontface = "italic") +
+  
+  labs(
+    title = "Model 2: Unstable Saddle Point",
+    subtitle = "Condition: cd < ab, e<0 f>0",
+    x = "Time",
+    y = "Military Spending",
+    colour = "Country",
+    caption = paste("a = 1.2, b = 1.1, c = 0.3, d = 0.3, e =", -e, ", f =", f,
+                    "| cd =", round(0.3*0.3,2), ", ab =", round(1.2*1.1,2))
+  ) +
+  scale_colour_manual(values = c("Purple" = "purple", "Green" = "green")) +
+  theme_gray(base_size = 14)
+  
 #Model 3: Condition: cd > ab, (e,f) < 0
 model3_neg <- arms_model(t_vals, arms, a = 0.4, b = 0.3, c = 0.8, d = 0.9, -e, -f)
 
@@ -293,7 +365,54 @@ ggplot(soln3) +
     legend.position = "right",
     plot.caption = element_text(size = 10)
   )
+
+#Model 3: Condition: cd > ab, (e > 0, f < 0)
+model3_diff <- arms_model(t_vals, arms, a = 0.4, b = 0.3, c = 0.8, d = 0.9, -e, f)
+
+soln3_diff <- data.frame(
+  time = t_vals,
+  purple = model3_diff[1,],
+  green = model3_diff[2,]
+)
+
+eq3 <- equilibrium(a = 0.4, b = 0.3, c = 0.8, d = 0.9, e = -e, f = f)
+
+ggplot(soln3) +
+  geom_line(aes(x = time, y = purple, colour = "Purple"), linewidth = 0.9) +
+  geom_line(aes(x = time, y = green, colour = "Green"), linewidth = 0.9) +
   
+  #equilibrium label
+  annotate("text",
+           x = max(t_vals)*0.75,
+           y = eq3["p_star"] + 1,
+           label = paste0("(p*, g*) = (",
+                          round(eq3["p_star"],0), ", ",
+                          round(eq3["g_star"],0), ")"),
+           hjust = 0,
+           size = 4,
+           colour = "firebrick",
+           fontface = "italic") +
+  
+  labs(
+    title = "Model 2: Stable Node",
+    subtitle = "Condition: cd > ab, e<0, f>0",
+    x = "Time",
+    y = "Military Spending",
+    colour = "Country",
+    caption = paste("a = 0.4, b = 0.3, c = 0.8, d = 0.9, e =", -e, ", f =", f,
+                    "| cd =", round(0.8*0.9,2), ", ab =", round(0.4*0.3,2))
+  ) +
+  
+  scale_colour_manual(values = c("Purple" = "purple", "Green" = "green")) +
+  
+  theme_gray(base_size = 14) +
+  theme(
+    plot.title = element_text(face = "plain"),
+    plot.subtitle = element_text(size = 12),
+    legend.position = "right",
+    plot.caption = element_text(size = 10)
+  )
+
 ####################################
 ### Phase Diagrams for each Case ###
 ####################################
