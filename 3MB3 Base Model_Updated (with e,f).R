@@ -85,6 +85,56 @@ ggplot(soln1) +
   
   theme_gray(base_size = 14)
 
+#Model 1 - Condition: cd = ab, infinite equilibria case
+#pick good values for e and derive f using the relation established
+e <- 12
+b <-0.3
+c <- 0.6
+f <- (-b*e)/c
+model1_inf <- arms_model(t_vals, arms, a = 0.4, b = 0.3, c = 0.6, d = 0.2, e, f)
+
+eq1_inf <- equilibrium(a = 0.4, b = 0.3, c = 0.6, d = 0.2, e, f)
+
+soln1_inf <- data.frame(
+  time = t_vals,
+  purple = model1_inf[1,],
+  green = model1_inf[2,]
+)
+
+ggplot(soln1_inf) +
+  geom_line(aes(x = time, y = purple, colour = "Purple"), linewidth = 0.9) +
+  geom_line(aes(x = time, y = green, colour = "Green"), linewidth = 0.9) +
+  
+  #equilibrium label
+  annotate("text",
+           x = max(t_vals)*0.75,
+           y = max(model1_inf[1,])*0.75,
+           label = paste0("(p*, g*) = (",
+                          "(ag+e)/c", ", ",
+                          "g", ")"),
+           hjust = 0,
+           size = 4,
+           colour = "firebrick",
+           fontface = "italic") +
+  
+  labs(
+    title = "Base Model: Infinite Equilibria",
+    subtitle = "Condition: cd = ab",
+    x = "Time",
+    y = "Military Spending",
+    colour = "Country",
+    caption = paste0(
+      "a = 0.4, b = 0.3, c = 0.6, d = 0.2, e = ",  round(e,2), ", f = ", round(f,2),
+      "   |   cd = ", round(0.6*0.2,2),
+      ", ab = ", round(0.4*0.3,2)
+    )
+  ) +
+  
+  scale_colour_manual(values = c("Purple" = "purple", "Green" = "green")) +
+  
+  theme_gray(base_size = 14)
+
+
 #Model 2 - Condition: cd < ab , +ve e,f
 model2 <- arms_model(t_vals, arms, a = 1.2, b = 1.1, c = 0.3, d = 0.3, e, f)
 #Plot Model 2
