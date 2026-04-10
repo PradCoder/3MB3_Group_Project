@@ -3,9 +3,9 @@ library(expm)
 library(ggplot2)
 
 #t-values
-t_vals <- seq(0, 50, by = 0.1)
+t_vals <- seq(0, 20, by = 0.1)
 
-#inital conditions
+#initial conditions
 p0 <- 35
 g0 <- 20
 x0 <- c(p0, g0)
