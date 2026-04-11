@@ -134,6 +134,9 @@ ggplot(soln1_inf) +
   
   theme_gray(base_size = 14)
 
+#parameters reinitialized since I need to go back to the default case
+e <- 12
+f <- 15
 
 #Model 2 - Condition: cd < ab , +ve e,f
 model2 <- arms_model(t_vals, arms, a = 1.2, b = 1.1, c = 0.3, d = 0.3, e, f)
@@ -340,10 +343,9 @@ ggplot(soln2) +
   geom_line(aes(x = time, y = green, colour = "Green"), linewidth = 0.9) +
   
   #equilibrium label
-  abline()
   annotate("text",
            x = max(t_vals)*0.75,
-           y = eq2["p_star"] + 1,
+           y = max(model2_neg[1,])*0.75,
            label = paste0("(p*, g*) = (",
                           round(eq2["p_star"],0), ", ",
                           round(eq2["g_star"],0), ")"),
@@ -354,7 +356,7 @@ ggplot(soln2) +
   
   labs(
     title = "Model 2: Unstable Saddle Point",
-    subtitle = "Condition: cd < ab",
+    subtitle = "Condition: cd < ab e < 0,f <0",
     x = "Time",
     y = "Military Spending",
     colour = "Country",
@@ -460,7 +462,7 @@ ggplot(soln3) +
   #equilibrium label
   annotate("text",
            x = max(t_vals)*0.75,
-           y = eq3["p_star"] + 1,
+           y = max(model3_neg[1,])*0.75,
            label = paste0("(p*, g*) = (",
                           round(eq3["p_star"],0), ", ",
                           round(eq3["g_star"],0), ")"),
@@ -471,7 +473,7 @@ ggplot(soln3) +
   
   labs(
     title = "Model 2: Stable Node",
-    subtitle = "Condition: cd > ab",
+    subtitle = "Condition: cd > ab, e < 0, f< 0",
     x = "Time",
     y = "Military Spending",
     colour = "Country",
