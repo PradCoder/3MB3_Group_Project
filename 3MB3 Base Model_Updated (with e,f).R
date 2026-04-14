@@ -177,7 +177,7 @@ ggplot(soln2) +
   scale_colour_manual(values = c("Purple" = "purple", "Green" = "green")) +
   theme_gray(base_size = 14)
 
-#Model 3: Condition: cd > ab
+#Model 3: Condition: cd > ab , e>0 f>0
 model3 <- arms_model(t_vals, arms, a = 0.4, b = 0.3, c = 0.8, d = 0.9, e, f)
 
 soln3 <- data.frame(
@@ -195,7 +195,7 @@ ggplot(soln3) +
   #equilibrium label
   annotate("text",
            x = max(t_vals)*0.75,
-           y = eq3["p_star"] + 1,
+           y = max(model3[1,])*0.75,
            label = paste0("(p*, g*) = (",
                           round(eq3["p_star"],0), ", ",
                           round(eq3["g_star"],0), ")"),
@@ -206,7 +206,7 @@ ggplot(soln3) +
   
   labs(
     title = "Base Model: Stable Node",
-    subtitle = "Condition: cd > ab",
+    subtitle = "Condition: cd > ab, e> 0, f>0",
     x = "Time",
     y = "Military Spending",
     colour = "Country",
@@ -455,7 +455,7 @@ soln3_neg <- data.frame(
 
 eq3 <- equilibrium(a = 0.4, b = 0.3, c = 0.8, d = 0.9, e = -e, f = -f)
 
-ggplot(soln3) +
+ggplot(soln3_neg) +
   geom_line(aes(x = time, y = purple, colour = "Purple"), linewidth = 0.9) +
   geom_line(aes(x = time, y = green, colour = "Green"), linewidth = 0.9) +
   
@@ -502,14 +502,14 @@ soln3_diff <- data.frame(
 
 eq3 <- equilibrium(a = 0.4, b = 0.3, c = 0.8, d = 0.9, e = -e, f = f)
 
-ggplot(soln3) +
+ggplot(soln3_diff) +
   geom_line(aes(x = time, y = purple, colour = "Purple"), linewidth = 0.9) +
   geom_line(aes(x = time, y = green, colour = "Green"), linewidth = 0.9) +
   
   #equilibrium label
   annotate("text",
            x = max(t_vals)*0.75,
-           y = eq3["p_star"] + 1,
+           y = max(model3_diff[1,])*0.75,
            label = paste0("(p*, g*) = (",
                           round(eq3["p_star"],0), ", ",
                           round(eq3["g_star"],0), ")"),
@@ -541,7 +541,7 @@ ggplot(soln3) +
 #Model 3: Condition: cd > ab, (e > 0, f < 0)
 model3_diff_b <- arms_model(t_vals, arms, a = 0.4, b = 0.3, c = 0.8, d = 0.9, e, -f)
 
-soln3_diff <- data.frame(
+soln3_diff_b <- data.frame(
   time = t_vals,
   purple = model3_diff_b[1,],
   green = model3_diff_b[2,]
@@ -549,14 +549,14 @@ soln3_diff <- data.frame(
 
 eq3 <- equilibrium(a = 0.4, b = 0.3, c = 0.8, d = 0.9, e = e, f = -f)
 
-ggplot(soln3) +
+ggplot(soln3_diff_b) +
   geom_line(aes(x = time, y = purple, colour = "Purple"), linewidth = 0.9) +
   geom_line(aes(x = time, y = green, colour = "Green"), linewidth = 0.9) +
   
   #equilibrium label
   annotate("text",
            x = max(t_vals)*0.75,
-           y = eq3["p_star"] + 1,
+           y = max(model3_diff_b[1,])*0.75,
            label = paste0("(p*, g*) = (",
                           round(eq3["p_star"],0), ", ",
                           round(eq3["g_star"],0), ")"),
