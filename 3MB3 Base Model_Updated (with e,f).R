@@ -44,7 +44,7 @@ arms_model <- function(t_vals, arms, a, b, c, d, e, f){
 }
 
 
-#equilibirum
+#equilibirum point calculation
 equilibrium <- function(a, b, c, d, e, f) {
   denom <- c*d - a*b
   if (abs(denom) < 1e-10) return(NULL)
@@ -91,16 +91,21 @@ e <- 12
 b <-0.3
 c <- 0.6
 f <- (-b*e)/c
+
+# build model with with the specified parameters
 model1_inf <- arms_model(t_vals, arms, a = 0.4, b = 0.3, c = 0.6, d = 0.2, e, f)
 
+# find equilibrium
 eq1_inf <- equilibrium(a = 0.4, b = 0.3, c = 0.6, d = 0.2, e, f)
 
+# setup dataframe for plotting
 soln1_inf <- data.frame(
   time = t_vals,
   purple = model1_inf[1,],
   green = model1_inf[2,]
 )
 
+#draw with ggplot
 ggplot(soln1_inf) +
   geom_line(aes(x = time, y = purple, colour = "Purple"), linewidth = 0.9) +
   geom_line(aes(x = time, y = green, colour = "Green"), linewidth = 0.9) +
