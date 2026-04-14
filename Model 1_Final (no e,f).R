@@ -31,15 +31,12 @@ a3 <- 0.4
 b3 <- 0.3
 c3 <- 0.8
 d3 <- 0.9
-
 model3 <- arms_model_exact(t_vals, x0, a3, b3, c3, d3)
-
 soln3 <- data.frame(
   time = t_vals,
   purple = model3[1,],
   green = model3[2,]
 )
-
 ggplot(soln3) +
   geom_line(aes(x = time, y = purple, colour = "Purple"), linewidth = 0.9) +
   geom_line(aes(x = time, y = green, colour = "Green"), linewidth = 0.9) +
@@ -68,15 +65,12 @@ a2 <- 1.2
 b2 <- 1.1
 c2 <- 0.3
 d2 <- 0.3
-
 model2 <- arms_model_exact(t_vals, x0, a2, b2, c2, d2)
-
 soln2 <- data.frame(
   time = t_vals,
   purple = model2[1,],
   green = model2[2,]
 )
-
 ggplot(soln2) +
   geom_line(aes(x = time, y = purple, colour = "Purple"), linewidth = 0.9) +
   geom_line(aes(x = time, y = green, colour = "Green"), linewidth = 0.9) +
@@ -97,15 +91,12 @@ a1 <- 0.4
 b1 <- 0.3
 c1 <- 0.6
 d1 <- 0.2
-
 model1 <- arms_model_exact(t_vals, x0, a1, b1, c1, d1)
-
 soln1 <- data.frame(
   time = t_vals,
   purple = model1[1,],
   green = model1[2,]
 )
-
 ggplot(soln1) +
   geom_line(aes(x = time, y = purple, colour = "Purple"), linewidth = 0.9) +
   geom_line(aes(x = time, y = green, colour = "Green"), linewidth = 0.9) +
