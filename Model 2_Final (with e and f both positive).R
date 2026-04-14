@@ -107,7 +107,7 @@ ggplot(soln2) +
   scale_colour_manual(values = c("Purple" = "purple", "Green" = "green")) +
   theme_gray(base_size = 14)
 
-#Figure 8 - Condition: cd = ab
+#Figure 10 - Condition: cd = ab
 model1 <- arms_model(t_vals, arms, a = 0.4, b = 0.3, c = 0.6, d = 0.2, e, f)
 soln1 <- data.frame(
   time = t_vals,
