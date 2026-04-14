@@ -51,14 +51,11 @@ equilibrium <- function(a, b, c, d, e, f) {
 
 #Figure 4 - Condition: cd > ab
 model3 <- arms_model(t_vals, arms, a = 0.4, b = 0.3, c = 0.8, d = 0.9, e, f)
-
 soln3 <- data.frame(
   time = t_vals,
   purple = model3[1,],
   green = model3[2,])
-
 eq3 <- equilibrium(a = 0.4, b = 0.3, c = 0.8, d = 0.9, e = e, f = f)
-
 ggplot(soln3) +
   geom_line(aes(x = time, y = purple, colour = "Purple"), linewidth = 0.9) +
   geom_line(aes(x = time, y = green, colour = "Green"), linewidth = 0.9) +
@@ -95,9 +92,7 @@ soln2 <- data.frame(
   time = t_vals,
   purple = model2[1,],
   green = model2[2,])
-
 eq2 <- equilibrium(a = 1.2, b = 1.1, c = 0.3, d = 0.3, e = e, f = f)
-
 ggplot(soln2) +
   geom_line(aes(x = time, y = purple, colour = "Purple"), linewidth = 0.9) +
   geom_line(aes(x = time, y = green, colour = "Green"), linewidth = 0.9) +
@@ -114,12 +109,10 @@ ggplot(soln2) +
 
 #Figure 8 - Condition: cd = ab
 model1 <- arms_model(t_vals, arms, a = 0.4, b = 0.3, c = 0.6, d = 0.2, e, f)
-
 soln1 <- data.frame(
   time = t_vals,
   purple = model1[1,],
   green = model1[2,])
-
 ggplot(soln1) +
   geom_line(aes(x = time, y = purple, colour = "Purple"), linewidth = 0.9) +
   geom_line(aes(x = time, y = green, colour = "Green"), linewidth = 0.9) +
