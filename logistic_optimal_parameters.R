@@ -1,6 +1,9 @@
 #######
-Canada
+#Canada
 #######
+
+#import data
+SIPRI<-read.table(file="SIPRI.txt",sep="\t",header=TRUE,stringsAsFactors=TRUE)
 
 #enter observed values for military spending 
 canada<-SIPRI$Canada
@@ -14,7 +17,7 @@ ss <- function(par = c(a,c,e)) {
     C_vals[1] <- 4324.4 # initial spending (in 1950)
     #using Euler's method to predict spending in t+1
     #C(t+1)≈C(t)+h*(dC/dt)
-    #h=1 for one year increases, dC = a*(1-(canada[i]/40000))*usa[i] - c*canada[i] + e
+    #h=1 for one year increases, dC/dt = a*(1-(canada[i]/40000))*usa[i] - c*canada[i] + e
     for (i in 1:(length(C_vals) - 1)) {
       C_vals[i + 1] <- canada[i]+ a*(1-(canada[i]/40000))*usa[i] - c*canada[i] + e
     }
@@ -38,7 +41,7 @@ e_fit<- fit$par[3]
 
 
 #######
-USA
+#USA
 #######
 #create a function to calculate the sum of squared errors for given b,d,f values
 ss <- function(par = c(b,d,f)) {
@@ -70,9 +73,9 @@ b_fit <- fit$par[1]
 d_fit <- fit$par[2]
 f_fit<- fit$par[3]
 
-###############
-Simulate the Model 
-###############
+##################################################
+#Simulate the Model (and compare to observed data)
+#################################################
 
 #define time periods
 #model 74 years, starting in 1951
@@ -81,7 +84,8 @@ t_vals <- seq(0, 73, by = 1)
 #create empty matrix for storing values 
 arms <- matrix(NA, nrow = length(t_vals), ncol = 5)
 
-#fill in initial year is 1951 and initial spending for Canada and U.S
+#fill in initial spending for Canada and U.S in 1951
+#columns are: year, model for Canada, model for US, observed for Canada, observed for U.S
 arms[1,] <- c(1951,8763.2,404493.1,canada[2],usa[2])
 
 #run the model with calibrated parameters 
@@ -94,7 +98,7 @@ arms_model <- function(t_vals, arms, a, b, c, d, e, f,canada,usa){
     C_prev <- arms[t-1, 2]
     U_prev <- arms[t-1, 3]
     
-    #Logistic model equations with logistic constraint
+    #Logistic model equations 
     dC <- a*(1 - C_prev/40000)*U_prev - c*C_prev+ e
     dU <- b*(1 - U_prev/1041000)*C_prev - d*U_prev + f
     

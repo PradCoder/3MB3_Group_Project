@@ -1,30 +1,30 @@
-#############################
-# Logistic Arms Race Model
-# With Logistic Constraints
-############################
+#############################################
+# Logistic Arms Race Model for Canada and U.S 
+##############################################
 
 #time values
 t_vals <- seq(0,350, by = 0.1)
 
-#parameters
-#values of e and f shift the equilibrium but do not change stability results
+#parameters e and f 
 e <- 0.733582888 
 f <- -0.59771515 
 
-#capacity limits for military spending (logistic constraint parameters)
+#capacity limits for military spending 
+#Kp for Canada and Kg for U.S
 Kp <- 40000
 Kg <- 1041000
 
-#initial conditions determine the starting point of the simulation
-#values below or above equilibrium affect whether spending initially increases or decreases
+#initial conditions
+#p is Canada and g is U.S
 p0 <- 0
 g0 <- 0
 
-#create matrix to store model values: simulated spending levels of Purple and Green, respectively
+#create matrix to store model values
+#columns are: model for Canada, model for US, time
 arms <- matrix(NA, nrow = length(t_vals), ncol = 3)
 arms[1,] <- c(p0, g0,1)
 
-#Euler method to numerically simulate the logistic arms race model
+#use Euler's method to numerically simulate the model
 arms_model <- function(t_vals, arms, a, b, c, d, e, f, Kp, Kg){
   h <- t_vals[2] - t_vals[1]
   for(t in 2:length(t_vals)){
@@ -33,7 +33,7 @@ arms_model <- function(t_vals, arms, a, b, c, d, e, f, Kp, Kg){
     g_prev <- arms[t-1, 2]
     t_prev<-arms[t-1,3]
     
-    #Logistic model equations with logistic constraint
+    #Logistic model equations
     dp <- a*(1 - p_prev/Kp)*g_prev - c*p_prev + e
     dg <- b*(1 - g_prev/Kg)*p_prev - d*g_prev + f
     
@@ -61,4 +61,9 @@ ggplot(model1) +
   theme(axis.title.x = element_text(family = "sans", size = 12, margin=margin(10,0,0,0)), 
         axis.title.y = element_text(family = "sans", size = 12, margin=margin(0,10,0,0)), 
         plot.title = element_text(family = "sans", size = 14, margin=margin(0,0,10,0)))
-        
+
+#to find the second numerical simulation for Canada and U.S  
+#we change the initial conditions and time values and run the code again 
+p0 <- 29065.9
+g0 <-968381.6
+t_vals <- seq(0,30, by = 0.1)
